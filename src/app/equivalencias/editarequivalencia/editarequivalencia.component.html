@@ -1,0 +1,131 @@
+<style>
+  .lbl {
+    color: #999999;
+    font-size: small;
+  }
+
+  .separador {
+    border-bottom: 1px solid #F5F5F5;
+  }
+</style>
+<app-navbarequivalencias></app-navbarequivalencias>
+
+<div class="container-fluid">
+  <!--Card Header 1-->
+  <div class="row" *ngIf="!estaOculto">
+    <div class="container-fluid" style="margin-top:5px; margin-top:15px; margin-bottom:20px;">
+      <div class="card">
+        <div class="card-header">
+          <h4>Edición de equivalencia OSDE.</h4>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!--Card Edicion de Equivalencia-->
+  <div *ngIf="!estaOculto">
+    <div class="container-fluid col-lg-8 col-sm-8 col-lg-offset-2 col-sm-offset-2">
+      <div class="card">
+        <div class="card-header">
+          <h4>Editando equivalencia OSDE. </h4>
+        </div>
+        <div class="card-body">
+          <div class="row">
+            <div class="col-sm-12">
+              <div class="lbl"> Código de filial prestador:</div>
+              <label>{{equivalencia.filialPrestador}}</label>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-12">
+              <div class="lbl">Código de prestador: </div>
+              <label>{{equivalencia.codigoPrestador}}</label>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-5">
+              <div class="lbl">Código de prestación prestador: </div>
+              <label>{{equivalencia.codigoPrestacionPrestador}}</label>
+            </div>
+          </div>
+          <div class="row">
+            <br />
+            <div class="col-sm-3">
+              <div class="lbl">Código de prestación OSDE: </div>
+              <input type="text" (blur)="checkFocus()" class="form-control" maxlength="6" [(ngModel)]="equivalencia.codigoPrestacionOsde" required (keyup.enter)="focusableSubmit.click()" />
+            </div>
+          </div>
+          <br />
+          <div class="row">
+            <div class="col-sm-12">
+              <button #focusableSubmit type="button" class="btn btn-outline-primary" (click)="guardarEdicionEquivalencia()">Guardar</button>
+              <button type="button"  style="margin-left:6px" class="btn btn-outline-secondary" (click)="volverAtrasURL()">Cancelar</button>
+             
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  
+
+
+  <!--Card Header 2-->
+  <div class="row" *ngIf="estaOculto" >
+    <div class="container-fluid"style="margin-top:5px; margin-top:15px; margin-bottom:20px;">
+      <div class="card">
+        <div class="card-header">
+          <h4>Agregar nueva equivalencia OSDE.</h4>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!--Card Agregar nueva Equivalencia-->
+  <div *ngIf="estaOculto">
+
+    <div class="container-fluid col-lg-8 col-sm-8 col-lg-offset-2 col-sm-offset-2">
+
+      <div class="card">
+        <div class="card-header">
+          <h4>Agregando nueva equivalencia OSDE.</h4>
+        </div>
+        <div class="card-body">
+          <div class="row">
+            <div class="col-sm-5">
+              <div class="lbl">Código de filial de prestador: </div>
+              <label>{{params.filialPrestador}}</label>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-5">
+              <div class="lbl">Código de prestador: </div>
+              <label>{{params.codigoPrestador}}</label>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-3">
+              <div class="lbl">Código de prestación prestador: </div>
+              <input type="text"  class="form-control" maxlength="15" [(ngModel)]="params.codigoPrestacionPrestador" required (keyup.enter)="focusableSubmit.click()" (blur)="checkFocus()"/>
+            </div>
+          </div>
+          <div class="row">
+            <br />
+            <div class="col-sm-3">
+              <div class="lbl">Código de prestación OSDE: </div>
+              <input type="text"  class="form-control" maxlength="6" [(ngModel)]="params.codigoPrestacionOsde " required (keyup.enter)="focusableSubmit.click()" (blur)="checkFocus()"/>
+            </div>
+          </div>
+          <br />
+          <div class="row">
+            <div class="col-sm-12">
+              <button #focusableSubmit type="button" class="btn btn-outline-primary" (click)="guardarAgregarEquivalencia()">Guardar</button>
+              <button type="button" style="margin-left:6px" class="btn btn-outline-secondary" (click)="volverAtrasURL()">Cancelar</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

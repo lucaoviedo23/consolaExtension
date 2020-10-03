@@ -1,0 +1,67 @@
+  <div class="container-fluid">
+
+  <!--HEADER-->
+  <div class="row">
+
+    <div class="headerLogin">
+      <h1><img id="logo2" src="/assets/images/activialogo2.svg" /> Bienvenido</h1>
+    </div>
+
+  </div><!--HEADER-->
+
+
+  <!-- LOGIN -->
+  <div class="row">
+    <div class="containerLogin col-md-4 offset-md-4">
+      <div class="headerFormulario">
+        <span class="fas fa-user" aria-hidden="true"></span>
+      </div>
+      <br />
+      <div class=" form-horizontal">
+        <div class="form-group col-md-11" style="margin:auto;">
+          <label><b>Usuario:</b> </label>
+          <input type="text" [(ngModel)]="params.username" class="form-control" autofocus required (keyup.enter)="focusableSubmit.click()">
+        </div>
+        <br />
+        <div class="form-group col-md-11" style="margin:auto;">
+          <label><b>Contraseña:</b></label>
+          <input type="password" [(ngModel)]="params.password" class="form-control" required (keyup.enter)="focusableSubmit.click()">
+        </div>
+        <br />
+        <div class="form-group col-md-11" style="margin:auto;">
+          <button #focusableSubmit type="submit" class="btn btn-primary btn-lg btn-block" (click)="ingresarLogin()">Ingresar</button>
+        </div>
+        <br />
+        <br />
+      </div>
+
+    </div><!-- end container LOGIN -->
+  </div><!-- end row-->
+
+
+
+  <!--FOOTER -->
+  <div class="row">
+    <div class="container footer">
+      <div style="margin-left:-50px;">
+        <img src="assets/images/activialogo.svg" />
+      </div>
+      <p>
+        ACTIVIA S.A.    <br>
+        Av. Chiclana 3578 piso 7º (C1260ACP) Ciudad de Buenos Aires<br>
+        Tel. 2205-9500  <br>
+        soporte@activia.com.ar  <br>
+        www.activia.com.ar  <br>
+        Activia S.A. es una empresa certificada por normas de Calidad ISO 9001:2008
+      </p>
+    </div><!-- end container-->
+  </div><!-- end row-->
+
+
+  <!--CR-->
+  <div style="position:relative;top:900px;font-size:11px;text-align:center; ">
+    © 2015. Activia S.A. Quedan todos los derechos reservados. No se permite la reproducción total o parcial de esta obra, ni su traducción, ni su incorporación a un sistema informático, ni su locación, ni su transmisión en cualquier forma o por cualquier medio, sea este electrónico, mecánico, por fotocopia, por grabación y otros métodos, sin el previo consentimiento de Activia S.A. La violación a cualquiera de estos derechos exclusivos implica responsabilidad del infractor que dará lugar a sanciones civiles o criminales.
+  </div><!--CR-->
+
+
+</div>

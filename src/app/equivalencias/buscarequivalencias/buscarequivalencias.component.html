@@ -1,0 +1,209 @@
+
+<style>
+  .lbl {
+    color: #999999;
+    font-size: small;
+  }
+</style>
+
+
+<app-navbarequivalencias></app-navbarequivalencias>
+
+<div class="container-fluid">
+
+  <!--Card Header 1-->
+  <div class="row">
+    <div class="container-fluid" *ngIf="estaOculto" style="margin-top:5px; margin-top:15px; margin-bottom:20px;">
+      <div class="card">
+        <div class="card-header">
+          <h4>Equivalencias</h4>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!--Card Header 2-->
+  <div class="row" *ngIf="!estaOculto" style="margin-top:5px; margin-bottom:10px;">
+    <div class="col-sm-12">
+      <div class="card">
+        <div class="card-header" style="padding-bottom:5px">
+          <div class="row">
+            <div class="col-sm-2">
+              <h4>Equivalencias</h4>
+            </div>
+            <div class="col-sm-1">
+              <button class="btn btn-sm btn-outline-secondary" placement="top" routerLink="/editarequivalencia/{{filter.codigoPrestador}}/{{filter.filialPrestador}}/nuevo"><i class="fas fa-plus-square"></i>&nbsp;&nbsp; Agregar</button>
+            </div>
+            <div style="padding:0px 30px">
+              <small class="titulofiltros">
+                Buscando por "Prestador: {{filter.codigoPrestador}}" , "Obra social: {{filter.obra_social.obra_social_codigo}}" , "Filial: {{filter.filialPrestador}}" <button type="button" class="btn btn-default" placement="top" (click)="btnCerrarListadoEquivalencias()">
+                  <i class="fas fa-window-close"></i>
+                </button>
+              </small>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+
+  <!--Formulario de busqueda-->
+  <div *ngIf="estaOculto">
+    <div class="row">
+      <div class="container-fluid col-lg-8 col-sm-8 col-lg-offset-2 col-sm-offset-2">
+        <div class="card">
+          <div class="card-header">
+            <h4>Búsqueda de equivalencias</h4>
+          </div>
+          <div class="card-body">
+            <div class="row">
+              <div class="col-sm-4">
+                <label>Número de prestador</label>
+                <input type="text" (blur)="checkFocus()"[(ngModel)]="filter.codigoPrestador" class="form-control" maxlength="6" autofocus required (keyup.enter)="focusableSubmit.click()" >
+                
+              </div>
+              <div class="col-sm-8"></div>
+            </div>
+            <div class="row">
+              <div class="col-sm-2">
+                <br />
+                <label>Filial</label>
+                <input type="text" (blur)="checkFocus()"[(ngModel)]="filter.filialPrestador" class="form-control" maxlength="2" required (keyup.enter)="focusableSubmit.click()">
+
+              </div>
+              <div class="col-sm-2">
+                <br />
+                <label>Obra social</label>
+                <input type="text" [(ngModel)]="filter.obra_social" [ngbTypeahead]="typeaheadObraSocial" class="form-control" [resultFormatter]="osformatter" [inputFormatter]="osformatter" required (keyup.enter)="focusableSubmit.click()" />
+              </div>
+            </div>
+            <br />
+            <button #focusableSubmit class="btn btn-outline-primary" (click)="buscar()" >Buscar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!--Listado de equivalencias-->
+  <div style="background-color:#F5F5F5;" *ngIf="!estaOculto">
+    <div class="card">
+      <div class="card-body" style="background-color:#F5F5F5">
+        <div class="row" *ngIf="prestador_instalacion_os">
+          <div class="col-sm-6" *ngFor="let nombre of prestador_instalacion_os">
+            <div class="lbl"  style = "float: left">Nombre de prestador: </div><small style = "float: left; margin-left:5px"> "{{nombre.prestador_desc}}".</small>
+            <br />
+          </div>
+          </div>
+
+          <div class="row" *ngIf="equivalencias.length">
+            <div class="col-sm-2">
+              <div class="lbl">Código prestador </div>
+            </div>
+            <div class="col-sm-2">
+              <div class="lbl">Código OSDE </div>
+            </div>
+            <div class="col-sm-3">
+              <div class="lbl">Descripción</div>
+              <br />
+            </div>
+          </div>
+          <div class="row" *ngIf="equivalencias.length==0">
+            No hay equivalencias para mostrar&nbsp;<i class="fas fa-exclamation-triangle"></i>
+          </div>
+          <div class="row" *ngFor="let unaEquivalencia of equivalencias">
+            <div class="col-sm-2">
+              <div>{{unaEquivalencia.codigoPrestacionPrestador}}</div>
+            </div>
+            <div class="col-sm-2">
+              <div>{{unaEquivalencia.codigoPrestacionOsde}}</div>
+              <br />
+            </div>
+            <div class="col-sm-3">
+              <div>{{unaEquivalencia.descripcion}}</div>
+            </div>
+            <div class="col-sm-1">
+              <button class="btn  btn-outline-secondary btn-sm" (click)="abrirModal(modalEquivalencia, unaEquivalencia)">Ver más...</button>
+            </div>
+          </div>
+        </div>
+    </div>
+  </div>
+</div>
+
+
+
+<!--Modal Detalles-->
+<ng-template #modalEquivalencia>
+  <div class="modal-header">
+    <div class="modal-title"><h2>Equivalencia:&nbsp;&nbsp;&nbsp;"{{equivalenciaSeleccionada.codigoPrestacionOsde}}"</h2></div>
+  </div>
+  <div class="modal-body">
+    <div class="list-group"id="hoverhover">
+      <a class="list-group-item" style="text-decoration:none;color:black;" (click)="cancelarModal(modalEquivalencia)" routerLink="/editarequivalencia/{{equivalenciaSeleccionada.codigoPrestador}}/{{equivalenciaSeleccionada.codigoPrestacionPrestador}}/{{equivalenciaSeleccionada.filialPrestador}}">
+        <h4 class="list-group-item-heading">Editar.</h4>
+        <p class="list-group-item-text">Editar la equivalencia seleccionada.</p>
+      </a>
+    </div>
+    <div class="list-group" >
+      <a class="list-group-item" style="text-decoration:none;color:black;" (click)="eliminarEquivalencia(modalEquivalencia,confirmarEliminarModal,equivalenciaSeleccionada)"routerLink="/buscarequivalencias/{{equivalenciaSeleccionada.codigoPrestador}}/{{equivalenciaSeleccionada.filialPrestador}}"> <!--routerLink vacio para usar curso de seleccion-->
+        <h4 class="list-group-item-heading">Eliminar.</h4>
+        <p class="list-group-item-text">Eliminar la equivalencia seleccionada.</p>
+      </a>
+    </div>
+  </div>
+  <div class="modal-footer">
+   <button type="button" class="btn btn-outline-secondary" (click)="cancelarModal(modalEquivalencia) ">Cerrar</button>
+  </div>
+  
+</ng-template>
+
+
+
+
+
+
+<!--Modal confirmacion eliminar equivalencia-->
+<ng-template #confirmarEliminarModal>
+  <div class="modal-header">
+    <div class="modal-title"><h5>¿Deseas eliminar la equivalencia seleccionada ...?&nbsp;</h5></div>
+  </div>
+  <div class="modal-body">
+    <div class="row">
+      <br />
+      <div class="col-sm-6">
+        <div class="lbl">Filial prestador: </div>
+        <label>{{filter.filialPrestador}}</label>
+      </div>
+      <div class="col-sm-6">
+        <div class="lbl">Código prestador: </div>
+        <label>{{filter.codigoPrestador}}</label>
+      </div>
+    </div>
+    <div class="row">
+      <br />
+      <div class="col-sm-6">
+        <div class="lbl">Código de prestación prestador: </div>
+        <label>{{equivalenciaSeleccionada.codigoPrestacionPrestador}}</label>
+      </div>
+      <div class="col-sm-6">
+        <div class="lbl">Código de prestación OSDE: </div>
+        <label>{{equivalenciaSeleccionada.codigoPrestacionOsde}}</label>
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer">
+      <button type="button" class="btn btn-outline-danger" (click)="aceptarEliminarEquivalencia(confirmarEliminarModal, equivalenciaSeleccionada)">Eliminar</button>   
+      <button type="button" class="btn btn-outline-secondary" (click)="cancelarEliminarEquivalencia(confirmarEliminarModal, modalEquivalencia)" style="margin:auto 5px">Cancelar</button>
+    </div>
+</ng-template>
+
+
+
+
+
+
+

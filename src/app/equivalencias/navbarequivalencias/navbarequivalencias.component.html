@@ -1,0 +1,45 @@
+<!--NAV-->
+<nav class="navbar navbar-expand-lg navbar-light bg-light" style="margin-top:2px">
+  <button class="navbar-toggler ml-auto" type="button" (click)="toggleNavbar()"><span class="navbar-toggler-icon"></span></button>
+  <div class="collapse navbar-collapse" [ngClass]="{ 'show': navbarOpen }">
+    <ul class="nav navbar-nav">
+      <li class="nav-item active">
+        <div ngbDropdown>
+          <button class="btn btn-default" ngbDropdownToggle>Ir a </button>
+          <div ngbDropdownMenu>
+            <button ngbDropdownItem (click)="volverAImportar()">Importar...</button>
+            <!--<button  ngbDropdownItem (click)="irABajaMasiva()">Baja masiva</button>-->
+          </div>
+        </div>
+      </li>
+      <li class="nav-item active">
+        <div ngbDropdown>
+          <button class="btn btn-default" ngbDropdownToggle>Equivalencias</button>
+          <div ngbDropdownMenu>
+            <button  ngbDropdownItem (click)="irABuscar()">Buscar</button>
+            <button  ngbDropdownItem (click)="irABajaMasiva()">Baja masiva</button>
+          </div>
+        </div>
+      </li>
+    </ul>
+    <ul class="nav navbar-nav ml-auto">
+      <li class="nav-item active">
+        <div class="row">
+          <div class="col"  style="padding-right:0px;padding-left:0px">
+            <button class="btn btn-link" ><i class="fas fa-home" id="iconoUsuario" style="font-size:24px" (click)="volverAlIndice()"></i></button>
+          </div>
+          <div class="col" style="padding-left:0px">            
+            <div ngbDropdown >
+              <button class="btn btn-link"><i class="fas fa-user" id="iconoUsuario" ngbDropdownToggle></i></button>
+              <div ngbDropdownMenu>
+                <button ngbDropdownItem>{{usuarioInfo.user.description}}</button>
+                <hr />
+                <button ngbDropdownItem (click)="cerrarSesion()" >Cerrar Sesión</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </li>
+    </ul>
+  </div>
+</nav>

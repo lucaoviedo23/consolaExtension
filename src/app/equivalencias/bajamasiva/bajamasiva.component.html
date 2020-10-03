@@ -1,0 +1,117 @@
+
+<style>
+  .lbl {
+    color: #999999;
+    font-size: small;
+  }
+</style>
+
+<app-navbarequivalencias></app-navbarequivalencias>
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="container-fluid" style="margin-top:5px; margin-top:15px; margin-bottom:20px;">
+      <div class="card">
+        <div class="card-header">
+          <h4>Equivalencias</h4>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div>
+    <div class="row">
+      <div class="container-fluid col-lg-8 col-sm-8 col-lg-offset-2 col-sm-offset-2">
+        <div class="card">
+          <div class="card-header">
+            <h4>Baja masiva de equivalencias</h4>
+          </div>
+          <div class="card-body">
+            <div class="row">
+              <div class="col-sm-2">
+                <br />
+                <div class="lbl">Obra social</div>
+                <input type="text" [(ngModel)]="filter.obra_social" [ngbTypeahead]="typeaheadObraSocial" class="form-control" [resultFormatter]="osformatter" [inputFormatter]="osformatter" />
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-sm-2">
+                <br />
+                <label>Archivo</label>
+                <app-upload-file (onUploaded)="onFileUploaded()"></app-upload-file>
+              </div>
+            </div>
+            <br />
+            <button type="button" class="btn btn-primary" (click)="abrirModalConfirmarBajaMasiva(modalConfirmarBajaMasiva)">Aceptar</button>
+            <button type="button" class="btn btn-danger" (click)="verUltimosErrores(modalBajasErroneas)" style="margin-left:5px;" *ngIf="flagCantidadErrores != null">Ver errores</button>
+            <br />
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div>
+    <br />
+    <div class="container-fluid col-lg-8 col-sm-8 col-lg-offset-2 col-sm-offset-2 alert alert-info" style="position:center;text-align:center" role="alert">
+      <span class="icono-alerta  glyphicon glyphicon-download"></span>
+      Descargue la plantilla de excel con el formato correcto para la baja masiva de equivalencias.
+      <br /><br />
+      <div class=" btn btn-secondary" (click)="obtenerPlantillaBajaMasiva()"> Descargar</div>
+    </div>
+  </div>
+</div>
+  
+
+
+
+<ng-template #modalConfirmarBajaMasiva>
+  <div class="modal-header">
+    <div class="modal-title"><h3>Confirmación de baja masiva</h3></div>
+  </div>
+  <div class="modal-body">
+    <div>¿Desea realizar la baja masiva de equivalencias?</div>
+    <div>Una vez realizaba la acción, los cambios son irreversibles.</div>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-danger" (click)="aceptarBajaMasivaEquivalencias(modalConfirmarBajaMasiva,modalBajasErroneas)">Eliminar</button>
+    <button type="button" class="btn btn-outline-secondary"  style="margin:auto 5px" (click)="cancelarEliminarEquivalencia(modalConfirmarBajaMasiva)">Cancelar</button>
+  </div>
+</ng-template>
+
+<ng-template #modalBajasErroneas>
+  <div class="modal-header">
+    <div class="modal-title"><h3>Bajas erróneas de equivalencias</h3></div>
+  </div>
+  <div class="modal-body">
+    <div>Cantidad de códigos que no se dieron de baja:&nbsp;&nbsp;&nbsp;<b>{{respuestaBajaEquivalencias.cantidadErrores}}</b></div>
+    <br/>
+    <div class="row">
+      <div class="col-sm-6">
+        <div>Prestación Prestador</div>
+        <div>
+          <ul *ngFor="let unErrorPrestacionPrestador of respuestaBajaEquivalencias.codigosErroneosPrestacionPrestador">
+            <li>{{unErrorPrestacionPrestador}}</li>
+          </ul>
+        </div>
+      </div>
+      <div class="col-sm-6">
+        <div>Prestación OSDE</div>
+        <div>
+          <ul *ngFor="let unErrorPrestacionOSDE of respuestaBajaEquivalencias.codigosErroneosPrestacionOSDE">
+            <li>{{unErrorPrestacionOSDE}}</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+      </div>
+    <div class="row">
+      
+
+    </div>
+
+    
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-secondary" style="margin:auto 5px" (click)="cerrarModalBajasErroneas(modalBajasErroneas)">Cerrar</button>
+  </div>
+</ng-template>
+
+

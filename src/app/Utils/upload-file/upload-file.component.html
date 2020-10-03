@@ -1,0 +1,24 @@
+
+
+<!--Abrir modal-->
+<div>
+  <button type="button" class="btn btn-primary" (click)="abrirModal(modalUploadFile)">Subir archivo...</button>
+    <div *ngIf="paso == 1">{{respuesta}}</div>
+</div>
+<!--Modal UploadFile-->
+<ng-template #modalUploadFile>
+  <div class="modal-header">
+    <div class="modal-title"><h3>Precargar archivo</h3></div>
+  </div>
+  <div class="modal-body">
+    <form>
+      <div class="form-group">
+        <input type="file" id="fileInput"/>
+      </div>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button class="btn btn-primary" (click)="uploadFile(modalUploadFile)">Subir</button>
+    <button type="button" class="btn btn-outline-secondary" (click)="cerrarModal(modalUploadFile)">Cerrar</button>
+  </div>
+</ng-template>

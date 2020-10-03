@@ -1,0 +1,68 @@
+
+
+#logo {
+  position: relative;
+  top: -10px;
+  float: right;
+  right: 0px;
+  z-index: 1;
+  height: 89% !important;
+  --width: 28em;
+}
+
+
+.titulo {
+  font-family: 'Helvetica Neue', sans-serif;
+  position: absolute;
+  float: left;
+  left: 0%;
+  z-index: 1;
+  font-size: 1.0vw;
+  padding-left: 2vmax;
+}
+
+
+.HeaderPrincipal {
+  background-image: url(/assets/images/header.svg);
+  width: 100%;
+  float: left;
+  position: inherit;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+
+
+@media screen and (max-width: 768px) {
+  .HeaderPrincipal {
+    min-height: 50px;
+  }
+
+  .titulo {
+    top: 4%;
+    font-size: 2vmax;
+  }
+}
+
+@media screen and (min-width: 768px) {
+  .HeaderPrincipal {
+    min-height: 90px;
+  }
+
+  .titulo {
+    top: 4%;
+    font-size: 2vmax;
+  }
+}
+
+@media screen and (min-width: 1300px) {
+  .HeaderPrincipal {
+    max-height: 90px;
+  }
+
+  .titulo {
+    top: 4%;
+    font-size: 1.5vmax;
+    padding-left: 1%;
+  }
+}
